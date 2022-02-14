@@ -1,7 +1,9 @@
 package fr.uvsq.hal.pglp.patterns;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -10,6 +12,13 @@ import static fr.uvsq.hal.pglp.patterns.PhoneNumberType.PRO;
 import static org.junit.jupiter.api.Assertions.*;
 
 class EmployeeTest {
+  Employee frodon;
+
+  @BeforeEach
+  public void setup() {
+    frodon = new Employee.Builder("Frodon", "Sacquet", LocalDate.of(1987, 6, 12)).build();
+  }
+
   @Test
   public void unPersonnelPossedeLesCaracteristiquesObligatoires() {
     Employee employee = new Employee.Builder("Frodon", "Sacquet", LocalDate.of(1987, 6, 12)).build();
@@ -48,5 +57,12 @@ class EmployeeTest {
     assertEquals(LocalDate.of(1987, 6, 12), employee.getBirthDate());
     assertEquals(Optional.of(pro), employee.getPhoneNumber(PRO));
     assertEquals(Optional.of(mobile), employee.getPhoneNumber(MOBILE));
+  }
+
+  @Test
+  public void unPersonnelEstSerializable() throws IOException, ClassNotFoundException {
+    byte[] frodonAsByteArray = SerializationUtils.serialize(frodon);
+    Employee deserializedFrodon = SerializationUtils.deserialize(frodonAsByteArray, Employee.class);
+    assertEquals(frodon, deserializedFrodon);
   }
 }

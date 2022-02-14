@@ -3,7 +3,12 @@
 == Sérialisation en Java
 Dans cette partie, la persistance sera assurée par la _sérialisation_ Java.
 
-. Rendez les classes de l'application sérialisables et vérifiez-en le fonctionnement avec des tests unitaires.
+. En examinant les méthodes de la classe `SerializationUtils`, décrivez le fonctionnement du test unitaire `EmployeeTest.unPersonnelEstSerializable`.
+Comment la classe `Employee` est-elle rendue sérialisable ?
++
+  Répondre ici
+
+. Sur le modèle de la question précédente, écrivez le test unitaire `TeamTest.uneEquipelEstSerializable` et rendez la classe `Team` sérialisable.
 . Définissez l'interface DAO pour les opérations CRUD ainsi qu'une fabrique pour l'instanciation des DAO.
 . Implémentez cette interface avec la sérialisation Java.
 

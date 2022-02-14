@@ -1,5 +1,6 @@
 package fr.uvsq.hal.pglp.patterns;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -9,8 +10,9 @@ import java.util.*;
  * @author hal
  * @version 2022
  */
-public class Employee implements OrganizationElement {
+public class Employee implements OrganizationElement, Serializable {
   private final String firstname;
+
   private final String lastname;
   private final LocalDate birthDate;
   private List<String> functions;
@@ -43,6 +45,19 @@ public class Employee implements OrganizationElement {
   public Optional<PhoneNumber> getPhoneNumber(PhoneNumberType phoneNumberType) {
     PhoneNumber phoneNumber = phoneNumbers.get(phoneNumberType);
     return Optional.ofNullable(phoneNumber);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Employee employee = (Employee) o;
+    return firstname.equals(employee.firstname) && lastname.equals(employee.lastname) && birthDate.equals(employee.birthDate) && functions.equals(employee.functions) && phoneNumbers.equals(employee.phoneNumbers);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(firstname, lastname, birthDate, functions, phoneNumbers);
   }
 
   /**
