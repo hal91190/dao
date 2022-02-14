@@ -8,9 +8,12 @@ import java.util.Optional;
  * @author hal
  * @version 2022
  */
-public interface DAO<T> {
+public interface Dao<T> {
   boolean create(T objet);
+
   Optional<T> read(String identifier);
-  T update(T objet);
+
+  boolean update(T objet);
+
   void delete(T objet);
 }

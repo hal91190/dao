@@ -1,5 +1,6 @@
 package fr.uvsq.hal.pglp.patterns;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -8,7 +9,7 @@ import java.util.Objects;
  * @author hal
  * @version 2022
  */
-public class PhoneNumber {
+public class PhoneNumber implements Serializable {
   private final String phoneNumber;
   private final PhoneNumberType phoneNumberType;
 

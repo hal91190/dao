@@ -11,7 +11,7 @@ import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * La classe <code>EmployeeSerializedDAOTest</code> ...
@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @author hal
  * @version 2022
  */
-public class EmployeeSerializedDAOTest {
+public class EmployeeSerializedDaoTest {
   private static final String DIRECTORY_PREFIX = "dao_tests";
   private static Path tmpDirectory;
 
@@ -37,8 +37,25 @@ public class EmployeeSerializedDAOTest {
 
   @Test
   public void createTest() {
-    EmployeeSerializedDAO employeeDAO = new EmployeeSerializedDAO(tmpDirectory);
+    EmployeeSerializedDao employeeDAO = new EmployeeSerializedDao(tmpDirectory);
     employeeDAO.create(frodon);
     assertEquals(Optional.of(frodon), employeeDAO.read("Frodon_Sacquet"));
+  }
+
+  @Test
+  public void updateTest() {
+    Employee frodon2 = new Employee.Builder("Frodon", "Sacquet", LocalDate.of(1987, 6, 21)).build();
+    EmployeeSerializedDao employeeDAO = new EmployeeSerializedDao(tmpDirectory);
+    employeeDAO.create(frodon);
+    employeeDAO.update(frodon2);
+    assertEquals(Optional.of(frodon2), employeeDAO.read("Frodon_Sacquet"));
+  }
+
+  @Test
+  public void deleteTest() {
+    EmployeeSerializedDao employeeDAO = new EmployeeSerializedDao(tmpDirectory);
+    employeeDAO.create(frodon);
+    employeeDAO.delete(frodon);
+    assertTrue(employeeDAO.read("Frodon_Sacquet").isEmpty());
   }
 }

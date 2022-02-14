@@ -15,10 +15,10 @@ import java.util.Optional;
  * @author hal
  * @version 2022
  */
-public class EmployeeSerializedDAO implements DAO<Employee> {
+public class EmployeeSerializedDao implements Dao<Employee> {
   private final Path directory;
 
-  public EmployeeSerializedDAO(Path directory) {
+  public EmployeeSerializedDao(Path directory) {
     this.directory = directory;
   }
 
@@ -49,12 +49,19 @@ public class EmployeeSerializedDAO implements DAO<Employee> {
   }
 
   @Override
-  public Employee update(Employee employee) {
-    return null;
+  public boolean update(Employee employee) {
+    delete(employee);
+    return create(employee);
   }
 
   @Override
   public void delete(Employee employee) {
-
+    String filename = employee.getFirstname() + "_" + employee.getLastname();
+    Path employeePath = directory.resolve(filename);
+    try {
+      Files.deleteIfExists(employeePath);
+    } catch (IOException e) {
+      // Ignore the error
+    }
   }
 }
