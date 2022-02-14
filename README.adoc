@@ -9,8 +9,9 @@ Comment la classe `Employee` est-elle rendue sérialisable ?
   Répondre ici
 
 . Sur le modèle de la question précédente, écrivez le test unitaire `TeamTest.uneEquipelEstSerializable` et rendez la classe `Team` sérialisable.
-. Définissez l'interface DAO pour les opérations CRUD ainsi qu'une fabrique pour l'instanciation des DAO.
+. Définissez l'interface DAO pour les opérations CRUD.
 . Implémentez cette interface avec la sérialisation Java.
+. Implémentez une fabrique pour l'instanciation des DAO.
 
 == JDBC
 Dans cette partie, la persistance sera assurée par l'API JDBC.
