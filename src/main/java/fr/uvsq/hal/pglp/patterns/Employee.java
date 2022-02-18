@@ -15,7 +15,7 @@ public class Employee implements OrganizationElement, Serializable {
 
   private final String lastname;
   private final LocalDate birthDate;
-  private final List<String> functions;
+  private List<String> functions;
   private final Map<PhoneNumberType, PhoneNumber> phoneNumbers;
 
   private Employee(Builder builder) {
@@ -65,6 +65,14 @@ public class Employee implements OrganizationElement, Serializable {
   @Override
   public int hashCode() {
     return Objects.hash(firstname, lastname, birthDate, functions, phoneNumbers);
+  }
+
+  public Iterable<? extends String> getFunctions() {
+    return Collections.unmodifiableList(functions);
+  }
+
+  public void setFunctions(List<String> functions) {
+    this.functions = functions;
   }
 
   /**

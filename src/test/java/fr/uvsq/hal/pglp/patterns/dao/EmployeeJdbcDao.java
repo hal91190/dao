@@ -2,6 +2,9 @@ package fr.uvsq.hal.pglp.patterns.dao;
 
 import fr.uvsq.hal.pglp.patterns.Employee;
 
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -11,14 +14,58 @@ import java.util.Optional;
  * @version 2022
  */
 public class EmployeeJdbcDao implements Dao<Employee> {
+  private Connection connection;
+
+  public EmployeeJdbcDao(Connection connection) {
+    this.connection = connection;
+  }
+
   @Override
   public boolean create(Employee objet) {
-    return false;
+    try {
+      PreparedStatement psInsert = connection.prepareStatement("INSERT INTO employees VALUES(?, ?, ?)");
+      psInsert.setString(1, objet.getFirstname());
+      psInsert.setString(2, objet.getLastname());
+      psInsert.setDate(3, Date.valueOf(objet.getBirthDate()));
+      psInsert.executeUpdate();
+
+      psInsert = connection.prepareStatement("INSERT INTO functions VALUES(?, ?)");
+      for (String function : objet.getFunctions()) {
+        psInsert.setString(1, function);
+        psInsert.setString(2, objet.getLastname());
+        psInsert.executeUpdate();
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return false;
+    }
+    return true;
   }
 
   @Override
   public Optional<Employee> read(String identifier) {
-    return Optional.empty();
+    Employee employee = null;
+    try {
+      PreparedStatement psInsert = connection.prepareStatement("SELECT * FROM employees WHERE lastname = ?");
+      psInsert.setString(1, identifier);
+      psInsert.executeQuery();
+      ResultSet rs = psInsert.executeQuery();
+      rs.next();
+      employee = new Employee.Builder(rs.getString(1), rs.getString(2), rs.getDate(3).toLocalDate()).build();
+
+      psInsert = connection.prepareStatement("SELECT * FROM functions WHERE employee = ?");
+      psInsert.setString(1, identifier);
+      rs = psInsert.executeQuery();
+      List<String> functions = new ArrayList<>();
+      while (rs.next()) {
+        functions.add(rs.getString(1));
+      }
+      employee.setFunctions(functions);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return Optional.empty();
+    }
+    return Optional.ofNullable(employee);
   }
 
   @Override
