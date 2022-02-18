@@ -71,8 +71,8 @@ public class Employee implements OrganizationElement, Serializable {
     return Collections.unmodifiableList(functions);
   }
 
-  public void setFunctions(List<String> functions) {
-    this.functions = functions;
+  public void addFunction(String function) {
+    this.functions.add(function);
   }
 
   /**

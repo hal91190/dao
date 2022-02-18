@@ -3,8 +3,6 @@ package fr.uvsq.hal.pglp.patterns.dao;
 import fr.uvsq.hal.pglp.patterns.Employee;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -55,11 +53,9 @@ public class EmployeeJdbcDao implements Dao<Employee> {
         psInsert = connection.prepareStatement("SELECT * FROM functions WHERE employee = ?");
         psInsert.setString(1, identifier);
         rs = psInsert.executeQuery();
-        List<String> functions = new ArrayList<>();
         while (rs.next()) {
-          functions.add(rs.getString(1));
+          employee.addFunction(rs.getString(1));
         }
-        employee.setFunctions(functions);
       }
     } catch (SQLException e) {
       e.printStackTrace();
