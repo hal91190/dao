@@ -55,15 +55,15 @@ public class EmployeeJdbcDaoTest {
   public void updateTest() {
     Employee frodon2 = new Employee.Builder("Frodon", "Sacquet", LocalDate.of(1987, 6, 21)).build();
     Dao<Employee> employeeDAO = new EmployeeJdbcDao(connection);
-    employeeDAO.create(frodon);
-    employeeDAO.update(frodon2);
+    assertTrue(employeeDAO.create(frodon));
+    assertTrue(employeeDAO.update(frodon2));
     assertEquals(Optional.of(frodon2), employeeDAO.read("Sacquet"));
   }
 
   @Test
   public void deleteTest() {
     Dao<Employee> employeeDAO = new EmployeeJdbcDao(connection);
-    employeeDAO.create(frodon);
+    assertTrue(employeeDAO.create(frodon));
     employeeDAO.delete(frodon);
     assertTrue(employeeDAO.read("Sacquet").isEmpty());
   }
