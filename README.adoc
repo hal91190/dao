@@ -19,8 +19,17 @@ Dans cette partie, la persistance sera assurée par l'API JDBC.
 Vous reprendrez le travail sur la sérialisation et vous le compléterez.
 Vous pouvez utiliser le SGBD http://db.apache.org/derby/[derby] en mode embarqué.
 
-. Quelles directives du POM intègrent le SGBD au projet ?
-. Proposez une nouvelle implémentation des DAO en utilisant JDBC.
+. Quelles directives ajouter au POM pour intègrer JDBC et le SGBD au projet ?
++
+  Répondre ici
+
+. Développez quelques tests pour vérifier le bon fonctionnent de JDBC.
+. Définissez le modèle relationnel permettant de stocker les données des instances du modèle objet
++
+  Répondre ici
+
+. Implémentez l'interface `DAO<T>` pour la classe `Employee` avec JDBC.
+. (optionnelle) Faites de même pour la classe `Team`.
 . Mettez en œuvre une fabrique abstraite pour la création des DAO.
 
 == ORM avec JPA (optionnelle)
