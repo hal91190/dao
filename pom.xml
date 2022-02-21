@@ -17,6 +17,7 @@
     <checkstyle.config.location>checkstyle.xml</checkstyle.config.location>
     <checkstyle.consoleOutput>true</checkstyle.consoleOutput>
     <checkstyle.failOnViolation>true</checkstyle.failOnViolation>
+    <spotbugs.failOnError>false</spotbugs.failOnError>
   </properties>
 
   <dependencies>
